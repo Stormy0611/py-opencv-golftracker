@@ -1,5 +1,5 @@
 # distutils: language = c
-# distutils: sources = ../MatlabAPI/private/maskApi.c
+# distutils: sources = maskApi.c
 
 #**************************************************************************
 # Microsoft COCO Toolbox.      version 2.0
@@ -31,10 +31,10 @@ cdef extern from "maskApi.h":
     ctypedef unsigned char byte
     ctypedef double* BB
     ctypedef struct RLE:
-        siz h,
-        siz w,
-        siz m,
-        uint* cnts,
+        siz h
+        siz w
+        siz m
+        uint* cnts
     void rlesInit( RLE **R, siz n )
     void rleEncode( RLE *R, const byte *M, siz h, siz w, siz n )
     void rleDecode( const RLE *R, byte *mask, siz n )
@@ -138,7 +138,7 @@ def decode(rleObjs):
     cdef RLEs Rs = _frString(rleObjs)
     h, w, n = Rs._R[0].h, Rs._R[0].w, Rs._n
     masks = Masks(h, w, n)
-    rleDecode( <RLE*>Rs._R, masks._mask, n );
+    rleDecode( <RLE*>Rs._R, masks._mask, n )
     return np.array(masks)
 
 def merge(rleObjs, bint intersect=0):
@@ -255,7 +255,7 @@ def frPoly( poly, siz h, siz w ):
     Rs = RLEs(n)
     for i, p in enumerate(poly):
         np_poly = np.array(p, dtype=np.double, order='F')
-        rleFrPoly( <RLE*>&Rs._R[i], <const double*> np_poly.data, len(np_poly)/2, h, w )
+        rleFrPoly( <RLE*>&Rs._R[i], <const double*> np_poly.data, int(len(np_poly) / 2), h, w )
     objs = _toString(Rs)
     return objs
 
