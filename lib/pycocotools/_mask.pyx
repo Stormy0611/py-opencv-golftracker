@@ -1,5 +1,5 @@
 # distutils: language = c
-# distutils: sources = maskApi.c
+# distutils: sources = D:\\Projects\\AI\\py-opencv-golftracker\\lib\\pycocotools\\maskApi.c
 
 #**************************************************************************
 # Microsoft COCO Toolbox.      version 2.0
